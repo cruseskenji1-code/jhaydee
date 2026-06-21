@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Bao</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="hearts-layer" id="heartsLayer" aria-hidden="true"></div>
+
+  <main class="stage">
+    <section class="scene intro-scene is-active" id="introScene">
+      <div class="cloud cloud-one"></div>
+      <div class="cloud cloud-two"></div>
+      <p class="kicker">A small letter in the sky</p>
+      <h1>Hello bao &#10084;&#65039;&#9729;&#65039;</h1>
+      <p class="intro-copy">Small gift q sau &mdash; sana magustuhan mo hehe&#128153;</p>
+      <button class="primary-button" id="openMessageBtn">Open the message</button>
+    </section>
+
+    <section class="scene video-scene" id="videoScene">
+      <video class="love-video" id="loveVideo" controls playsinline preload="metadata">
+        <source src="video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="presentation" aria-live="polite">
+        <div class="slide is-showing" data-slide>
+          <span class="slide-tag">For Bao</span>
+          <h2>A tiny video presentation</h2>
+          <p>Three months of little moments, saved smiles, and all the reasons you became so special.</p>
+        </div>
+
+        <div class="slide" data-slide>
+          <span class="slide-tag">Memory</span>
+          <h2>I started saving moments</h2>
+          <p>Happy, sad, galit, nagtatampo, or random days. Every picture became something I wanted to keep.</p>
+        </div>
+
+        <div class="slide" data-slide>
+          <span class="slide-tag">Promise</span>
+          <h2>I want to grow better</h2>
+          <p>For myself, for you, and for the future I keep praying we can build with patience and honesty.</p>
+        </div>
+
+        <div class="slide" data-slide>
+          <span class="slide-tag">Always</span>
+          <h2>I would choose you again</h2>
+          <p>If I were born a thousand times, I would spend a thousand lives choosing and loving you all over again.</p>
+        </div>
+
+        <div class="progress-track">
+          <span id="progressFill"></span>
+        </div>
+      </div>
+
+      <button class="primary-button hidden" id="openLastBtn">Open my last message</button>
+    </section>
+
+    <section class="scene final-scene" id="finalScene">
+      <p class="kicker">Last message</p>
+            
+      <p class="question-text">
+        May I respectfully ask for the chance to get to know you better, with sincere intentions of pursuing a meaningful and genuine relationship? I would greatly appreciate the opportunity to understand your personality, values, and interests more deeply, so I can determine if we are truly compatible. I assure you that I will approach you with respect, patience, and honesty, and I will fully respect your feelings and boundaries regardless of your decision, So may I have your answer?
+      </p>
+
+      <div class="answer-row">
+        <button class="yes-button" id="yesBtn">Yes</button>
+        <button class="no-button" id="noBtn">No</button>
+      </div>
+
+      <p class="yes-message hidden" id="yesMessage">
+        Thank you, Bao. I promise to handle your answer with care. &#128153;
+      </p>
+    </section>
+  </main>
+
+  <dialog class="message-modal" id="messageModal">
+    <div class="modal-card">
+      <button class="close-button" id="closeModalBtn" aria-label="Close message">&times;</button>
+
+      <div class="letter-header">
+        <h2>Hello, Bao.</h2>
+        <time datetime="2026-06-12">June 12, 2026</time>
+      </div>
+
+      <div class="letter-body">
+        <p>We've been together for almost 3 months na po, noh? Matagal ko na po talagang ginawa itong message na ito. Iniipon ko lang talaga lahat ng gusto kong sabihin sayo.</p>
+        <p>Sa almost 3 months na paguusap po natin diko inexpect na mamahalin kita ng sobra narealize kona nahuhulog na ako sayo nung time na sinasave kona mga pics mo whenever you're happy, sad, galit, nagtatampo or kahit ano pang ginagawa mo. dun ko nalaman na mahal kita dahil hindi ako mahilig magsave ng pics para sa memories pero tignan mo ngayon andami kong sinesave para icherish yung mga moments na ganyan kahit maliit man or malaking event sa buhay mo.Naalala na kita tuwing nakakakita ako ng favorites mo like dutchmill,yakult,coke HAHHAHA.</p>
+        <p>gusto kona palagi ka nandyan sa tabi ko ayaw na kitang mawala.</p>
+        <p>Ang dami kong naimprove sa sarili ko, at looking forward pa ako na mas maimprove ko ang sarili ko and be the best version of myself for you. sobrang super thankful ako kasi nakilala kita.</p>
+        <p>super na appreciate ko rin yung flowers at pizza, na diba dapat ako ang gumagawa nyan sobrang saya ko rin na komportable ka sakin at nagtitiwala ka sakin.</p>
+        <p>Sorry if wala ako sa tabi mo kapag sobrang kailangan mo ako. Hindi kita mayakap kapag kailangan mo ng hug, pero I'll try my best para macomfort ka and mafeel mong safe ka sakin.</p>
+        <p>Sorry rin kung minsan inaasar kita, love language ko yata talaga ang asarin ka. HAHAHAHA.</p>
+        <p>Hindi ko man masyadong napapafeel sayo kung gaano kita kamahal pero I'll try my best para mafeel mo yon, hopefully soon, kapag magkasama na tayo, ipaparamdam ko sayo tong nagliliyab kong pagmamahal HAHAHAHAH.</p>
+        <p>Sorry rin kung magkakaroon ako ng busy days, kasi magfofocus din ako sa career ko para matupad ko ang promises ko sayo to give you and Dos a comfortable and happy life sa future.</p>
+        <p>Never ako humiling kay God ng kahit na ano, pero this time, hinihiling ko na sana ikaw na talaga ang babaeng makakasama ko habang buhay. Ayoko na mawala ka sa buhay ko. gusto ko dito kana sakin at sabay tayong magiging better para sa isat isa. Ikaw na gusto kong makasama sa future, yung tipong parehong sasakit ang ulo natin dahil sa makukulit nating mga anak na nagmana sa kakulitan mo HAHAHAHA.</p>
+        <p>Hindi ko man ito nasasabi palagi, pero sobrang special mo sakin, at kahit ako, hindi ko na maexplain.</p>
+        <p>you have no idea how much I love you Kim.</p>
+        <p>Hindi ko po ito sinasabi dahil nagmamadali ako sa label o dahil gusto kong madaliin ang lahat. Gusto ko lang malaman mo kung gaano ka kaimportante sakin at kung gaano kaseryoso ang intensyon ko sayo. Gusto kitang pahalagahan, ingatan, mahalin, at mas kilalanin pa.</p>
+        <p class="closing-line">IF I WERE BORN A THOUSAND TIMES, I'D SPEND A THOUSAND LIVES CHOOSING AND LOVING YOU ALL OVER AGAIN.</p>
+      </div>
+
+      <button class="primary-button modal-action" id="openVideoBtn">
+        Open my video presentation
+      </button>
+    </div>
+  </dialog>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
