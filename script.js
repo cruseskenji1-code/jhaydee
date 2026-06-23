@@ -83,7 +83,7 @@ function playPresentation(onFinished) {
   let currentSlide = 0;
   let progress = 0;
 
-  const totalTime = 14200;
+  const totalTime = 19000;
   const slideLength = totalTime / slides.length;
   const startTime = performance.now();
 
