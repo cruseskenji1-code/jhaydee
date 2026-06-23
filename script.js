@@ -8,6 +8,7 @@ const openVideoBtn = document.querySelector("#openVideoBtn");
 const closeModalBtn = document.querySelector("#closeModalBtn");
 const openLastBtn = document.querySelector("#openLastBtn");
 const loveVideo = document.querySelector("#loveVideo");
+const presentationBlock = document.querySelector(".presentation");
 const progressFill = document.querySelector("#progressFill");
 const slides = [...document.querySelectorAll("[data-slide]")];
 const noBtn = document.querySelector("#noBtn");
@@ -34,6 +35,7 @@ function createFloatingHeart(index) {
   heart.style.opacity = randomBetween(0.45, 0.95).toFixed(2);
 
   heart.addEventListener("pointerenter", () => dodgeHeart(heart));
+
   heart.addEventListener("pointerdown", (event) => {
     event.preventDefault();
     dodgeHeart(heart);
@@ -43,8 +45,11 @@ function createFloatingHeart(index) {
 }
 
 function dodgeHeart(heart) {
-  heart.style.setProperty("--run-x", `${randomBetween(-160, 160)}px`);
-  heart.style.setProperty("--run-y", `${randomBetween(-140, 120)}px`);
+  const runX = randomBetween(-160, 160);
+  const runY = randomBetween(-140, 120);
+
+  heart.style.setProperty("--run-x", `${runX}px`);
+  heart.style.setProperty("--run-y", `${runY}px`);
   heart.classList.add("evade");
 
   setTimeout(() => {
@@ -59,32 +64,53 @@ function showScene(scene) {
 }
 
 function openModal() {
-  messageModal.showModal();
+  if (typeof messageModal.showModal === "function") {
+    messageModal.showModal();
+  } else {
+    messageModal.setAttribute("open", "");
+  }
 }
 
 function closeModal() {
-  messageModal.close();
+  if (typeof messageModal.close === "function") {
+    messageModal.close();
+  } else {
+    messageModal.removeAttribute("open");
+  }
 }
 
-function playPresentation() {
+function playPresentation(onFinished) {
   let currentSlide = 0;
+  let progress = 0;
+
   const totalTime = 14200;
   const slideLength = totalTime / slides.length;
   const startTime = performance.now();
 
   openLastBtn.classList.add("hidden");
-  slides.forEach((slide, index) => slide.classList.toggle("is-showing", index === 0));
+  loveVideo.classList.add("hidden");
+  presentationBlock.classList.remove("hidden");
+
+  slides.forEach((slide, index) => {
+    slide.classList.toggle("is-showing", index === 0);
+  });
+
   progressFill.style.width = "0%";
 
   const timer = setInterval(() => {
     const elapsed = performance.now() - startTime;
-    const progress = Math.min(elapsed / totalTime, 1);
+    progress = Math.min(elapsed / totalTime, 1);
+
     progressFill.style.width = `${progress * 100}%`;
 
-    const nextSlide = Math.min(slides.length - 1, Math.floor(elapsed / slideLength));
+    const nextSlide = Math.min(
+      slides.length - 1,
+      Math.floor(elapsed / slideLength)
+    );
 
     if (nextSlide !== currentSlide) {
       currentSlide = nextSlide;
+
       slides.forEach((slide, index) => {
         slide.classList.toggle("is-showing", index === currentSlide);
       });
@@ -92,30 +118,37 @@ function playPresentation() {
 
     if (progress >= 1) {
       clearInterval(timer);
-      openLastBtn.classList.remove("hidden");
-      openLastBtn.focus();
+
+      if (typeof onFinished === "function") {
+        onFinished();
+      } else {
+        openLastBtn.classList.remove("hidden");
+        openLastBtn.focus();
+      }
     }
   }, 80);
 }
 
-function playVideoOrFallback() {
+function playOwnVideo() {
   openLastBtn.classList.add("hidden");
+
+  presentationBlock.classList.add("hidden");
   loveVideo.classList.remove("hidden");
+
+  loveVideo.load();
   loveVideo.currentTime = 0;
 
   const playAttempt = loveVideo.play();
 
   if (playAttempt) {
-    playAttempt.catch(() => {
-      loveVideo.classList.add("hidden");
-      playPresentation();
-    });
+    playAttempt.catch(() => {});
   }
 }
 
 function moveNoButton(event) {
   const buttonRect = noBtn.getBoundingClientRect();
   const sceneRect = finalScene.getBoundingClientRect();
+
   const padding = 18;
   const maxX = Math.max(padding, sceneRect.width - buttonRect.width - padding);
   const maxY = Math.max(padding, sceneRect.height - buttonRect.height - padding);
@@ -141,7 +174,7 @@ function moveNoButton(event) {
   noBtn.style.top = `${nextY}px`;
 }
 
-for (let index = 0; index < heartCount; index++) {
+for (let index = 0; index < heartCount; index += 1) {
   createFloatingHeart(index);
 }
 
@@ -150,13 +183,15 @@ openMessageBtn.addEventListener("click", openModal);
 closeModalBtn.addEventListener("click", closeModal);
 
 messageModal.addEventListener("click", (event) => {
-  if (event.target === messageModal) closeModal();
+  if (event.target === messageModal) {
+    closeModal();
+  }
 });
 
 openVideoBtn.addEventListener("click", () => {
   closeModal();
   showScene(videoScene);
-  playVideoOrFallback();
+  playPresentation(playOwnVideo);
 });
 
 loveVideo.addEventListener("ended", () => {
@@ -165,8 +200,8 @@ loveVideo.addEventListener("ended", () => {
 });
 
 loveVideo.addEventListener("error", () => {
-  loveVideo.classList.add("hidden");
-  playPresentation();
+  presentationBlock.classList.add("hidden");
+  loveVideo.classList.remove("hidden");
 });
 
 openLastBtn.addEventListener("click", () => {
@@ -176,6 +211,7 @@ openLastBtn.addEventListener("click", () => {
 noBtn.addEventListener("pointerenter", moveNoButton);
 noBtn.addEventListener("pointermove", moveNoButton);
 noBtn.addEventListener("focus", moveNoButton);
+
 noBtn.addEventListener("click", (event) => {
   event.preventDefault();
   moveNoButton(event);
@@ -183,7 +219,7 @@ noBtn.addEventListener("click", (event) => {
 
 yesBtn.addEventListener("click", () => {
   yesMessage.classList.remove("hidden");
-  yesBtn.textContent = "Yes \u{1F499}";
+  yesBtn.textContent = "Yes 💙";
   noBtn.classList.add("hidden");
 });
 
@@ -191,4 +227,4 @@ window.addEventListener("resize", () => {
   if (finalScene.classList.contains("is-active")) {
     noBtn.removeAttribute("style");
   }
-});
+}); 
